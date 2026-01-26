@@ -496,6 +496,21 @@
             }
         }
 
+        /* Default: Mobile Image */
+        .founder-image-placeholder::after {
+            background-image: url('images/mandipa.jpeg');
+            height: fit-content;
+            background-size: cover;
+        }
+
+        /* Switch to Desktop Image at 1024px */
+        @media (min-width: 1024px) {
+            .founder-image-placeholder {
+                background-image: url('images/mandipa2.jpeg');
+                height: fit-content;
+            }
+        }
+
         .founder-image-placeholder:hover {
             transform: scale(1.03) rotate(-1deg);
             box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
@@ -1272,9 +1287,9 @@
         <div class="founder-content">
             <!-- Founder image placeholder -->
             <div class="founder-image">
-                <div class="founder-image-placeholder">
-                    <img alt="Mandipa" src="images/mandipa2.jpeg">
-                </div>
+                <picture class="founder-image-placeholder">
+                    <img src="images/mandipa2.jpeg" alt="Her Armour Founder" style="width:100%;">
+                </picture>
 
                 <h2 class="founder-name">Mandipa Amantle Hlabano</h2>
             </div>
@@ -1412,7 +1427,7 @@
             <!-- Product 1: Safety Alarm -->
             <div class="product-card">
                 <div class="product-image">
-                    <i class="fas fa-lightbulb"></i>
+                    <img src="images/product1.jpeg" alt="Normal Keychains">
                 </div>
                 <div class="product-info">
                     <h3>Self Defense Keychain Set</h3>
