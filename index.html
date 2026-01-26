@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Her Armour - Breaking the Silence</title>
+    <title>Her Armour</title>
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -32,96 +32,6 @@
         }
 
         /* ========================================
-           GLOBAL BACKGROUND CAROUSEL
-        ======================================== */
-        /* Background carousel container - Fixed to viewport */
-        .global-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        /* Individual carousel slides */
-        .carousel-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        /* Active slide */
-        .carousel-slide.active {
-            opacity: 1;
-        }
-
-        /* Global overlay for consistent readability */
-        .global-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.75) 0%, rgba(196, 69, 105, 0.75) 50%, rgba(142, 45, 139, 0.75) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Pattern overlay for texture */
-        .global-overlay::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* Carousel indicators - Fixed position */
-        .carousel-indicators {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 100;
-        }
-
-        .indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid white;
-        }
-
-        .indicator.active {
-            background: white;
-            width: 30px;
-            border-radius: 6px;
-        }
-
-        /* ========================================
            NAVIGATION BAR
         ======================================== */
         nav {
@@ -144,24 +54,14 @@
 
         /* Logo with vibrant gradient */
         .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: 1.6rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 50%, #a83279 75%, #8e2d8b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -0.5px;
             transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            background: linear-gradient(135deg, #ff6b6b 0%, #c44569 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .logo:hover {
@@ -223,10 +123,11 @@
         }
 
         /* ========================================
-           HERO SECTION - Now uses global background
+           HERO SECTION - Eye-catching entrance
         ======================================== */
         .hero {
             min-height: 100vh;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 20%, #c44569 40%, #a83279 70%, #8e2d8b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -237,10 +138,89 @@
             overflow: hidden;
         }
 
+        /* Animated background pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating shapes for visual interest */
+        .hero-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            top: 30%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(-5deg);
+            }
+        }
+
         /* Hero content with fade-in animation */
         .hero-content {
             position: relative;
-            z-index: 2;
+            z-index: 1;
             animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             max-width: 900px;
         }
@@ -257,12 +237,12 @@
         }
 
         .hero h1 {
-            font-size: 4.5rem;
+            font-size: 4rem;
             margin-bottom: 1.5rem;
             font-weight: 900;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             line-height: 1.2;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
         }
 
         /* Highlight text with different styling */
@@ -272,16 +252,6 @@
             padding: 0.2rem 1rem;
             border-radius: 10px;
             margin-top: 0.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero .tagline {
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.95;
         }
 
         .hero p {
@@ -334,18 +304,16 @@
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 80px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
-            z-index: 3;
         }
 
         .scroll-indicator i {
             font-size: 2rem;
             color: white;
-            opacity: 0.8;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            opacity: 0.7;
         }
 
         @keyframes bounce {
@@ -409,8 +377,7 @@
            FOUNDER SECTION - Personal connection
         ======================================== */
         .founder {
-            background: rgba(248, 249, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
             position: relative;
             overflow: hidden;
         }
@@ -442,15 +409,9 @@
         .founder-image {
             position: relative;
         }
-        .founder-name{
-            text-align: center;
-            font-size: 1.8rem;
-            font-family: Montserrat, sans-serif;
-
-        }
 
         /* Image placeholder with gradient and shadow */
-        .founder-image-placeholder {
+        .founder-image-placeholder{
             width: 100%;
             height: 550px;
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 50%, #a83279 75%, #8e2d8b 100%);
@@ -491,6 +452,14 @@
         .founder-image-placeholder:hover {
             transform: scale(1.03) rotate(-1deg);
             box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
+        }
+
+        .founder-name{
+            position: relative;
+            left: 5%;
+            font-size: 1.8rem;
+            color: #4a5568;
+            text-align: center;
         }
 
         /* Founder text content */
@@ -539,8 +508,7 @@
            IMPACT SECTION - Stats showcase
         ======================================== */
         .impact {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: white;
         }
 
         .impact-grid {
@@ -603,7 +571,6 @@
             border-radius: 20px;
             margin: 0 auto 1.5rem;
             box-shadow: 0 10px 30px rgba(196, 69, 105, 0.3);
-            color: white;
         }
 
         .impact-number {
@@ -720,29 +687,10 @@
            E-COMMERCE SECTION - Vibrant shop
         ======================================== */
         .ecommerce {
-            background: rgba(255, 107, 107, 0.95);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 20%, #c44569 40%, #a83279 70%, #8e2d8b 100%);
             color: white;
             position: relative;
             overflow: hidden;
-        }
-
-        /* Additional gradient overlay for shop section */
-        .ecommerce::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(196, 69, 105, 0.3) 50%, rgba(142, 45, 139, 0.3) 100%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .ecommerce .container {
-            position: relative;
-            z-index: 1;
         }
 
         /* Animated background shapes */
@@ -755,12 +703,6 @@
             height: 500px;
             background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
             animation: float 15s infinite ease-in-out;
-            z-index: 0;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-30px); }
         }
 
         .ecommerce .section-title {
@@ -812,7 +754,6 @@
             font-size: 5rem;
             position: relative;
             overflow: hidden;
-            color: white;
         }
 
         .product-image::before {
@@ -901,7 +842,6 @@
             font-size: 1.3rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
-            position: relative;
         }
 
         .whatsapp-button i {
@@ -936,7 +876,6 @@
             border-radius: 60px;
             background: #25D366;
             animation: pulse-ring 2s infinite;
-            z-index: -1;
         }
 
         /* ========================================
@@ -1047,11 +986,7 @@
 
             /* Hero section mobile adjustments */
             .hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .hero .tagline {
-                font-size: 1.2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
@@ -1117,25 +1052,6 @@
                 font-size: 1.1rem;
                 padding: 15px 35px;
             }
-
-            .logo {
-                font-size: 1.4rem;
-            }
-
-            /* Hide carousel indicators on mobile for cleaner look */
-            .carousel-indicators {
-                bottom: 20px;
-                gap: 8px;
-            }
-
-            .indicator {
-                width: 8px;
-                height: 8px;
-            }
-
-            .indicator.active {
-                width: 20px;
-            }
         }
 
         /* ========================================
@@ -1168,43 +1084,11 @@
 </head>
 <body>
 <!-- ========================================
-     GLOBAL BACKGROUND CAROUSEL
-======================================== -->
-<!-- Background carousel visible across entire site -->
-<div class="global-background">
-    <!-- Slide 1: Women empowerment theme -->
-    <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=1600&h=900&fit=crop');"></div>
-
-    <!-- Slide 2: Strength and resilience -->
-    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600&h=900&fit=crop');"></div>
-
-    <!-- Slide 3: Community support -->
-    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1600&h=900&fit=crop');"></div>
-
-    <!-- Slide 4: Solidarity -->
-    <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1600&h=900&fit=crop');"></div>
-</div>
-
-<!-- Global overlay for consistent text readability -->
-<div class="global-overlay"></div>
-
-<!-- Carousel indicators - visible on all pages -->
-<div class="carousel-indicators">
-    <span class="indicator active" data-slide="0"></span>
-    <span class="indicator" data-slide="1"></span>
-    <span class="indicator" data-slide="2"></span>
-    <span class="indicator" data-slide="3"></span>
-</div>
-
-<!-- ========================================
      NAVIGATION BAR
 ======================================== -->
 <nav>
     <div class="container">
-        <div class="logo">
-            <i class="fas fa-shield-alt"></i>
-            Her Armour
-        </div>
+        <div class="logo">Her Armour</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
             <li><a href="#founder">Founder</a></li>
@@ -1221,16 +1105,22 @@
 </nav>
 
 <!-- ========================================
-     HERO SECTION
+     HERO SECTION - First impression
 ======================================== -->
 <section class="hero" id="home">
+    <!-- Animated floating shapes for visual interest -->
+    <div class="hero-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
     <div class="hero-content">
-        <div class="tagline">Empowering Women • Ending Violence</div>
         <h1>
-            Her Armour
-            <span class="highlight">Standing Strong Against Gender-Based Violence</span>
+            Breaking the Silence
+            <span class="highlight">Ending Gender-Based Violence</span>
         </h1>
-        <p>Join us in the fight against gender-based violence. Together, we can create a safer, more equitable world where every woman lives free from fear and violence. Your voice matters. Your action counts.</p>
+        <p>Join us in the fight against gender-based violence. Together, we can create a safer, more equitable world where everyone lives free from fear and violence. Your voice matters. Your action counts.</p>
         <a href="#impact" class="cta-button">Discover Our Mission</a>
     </div>
 
@@ -1246,30 +1136,30 @@
 <section class="founder" id="founder">
     <div class="container">
         <h2 class="section-title">Meet Our Founder</h2>
+        <!-- <h1 class="founder-name"> Mandipa Amantle Hlabano </h1>-->
         <p class="section-subtitle">A voice for the voiceless, a champion for change</p>
 
         <div class="founder-content">
             <!-- Founder image placeholder -->
             <div class="founder-image">
                 <div class="founder-image-placeholder">
-                    <img src="images/mandipa2.jpeg" alt="Mandipa">
+                    <img src="images/mandipa.jpeg" alt="Mandipa">
                 </div>
+                <h1 class="founder-name"> Mandipa Amantle Hlabano </h1>
             </div>
-
-            <h2 class="founder-name">Mandipa Amantle Hlabano</h2>
 
             <!-- Founder story and mission -->
             <div class="founder-text">
                 <h3>Driven by Purpose, Fueled by Compassion</h3>
-                <p>The founder of Her Armour embarked on this journey after witnessing the devastating impact of gender-based violence in communities across Botswana. What began as a personal mission to support one survivor evolved into a comprehensive initiative to protect and empower women everywhere.</p>
+                <p>Our founder's journey began with a deeply personal experience that opened their eyes to the pervasive nature of gender-based violence in our communities. What started as a desire to help one person evolved into a mission to create systemic change.</p>
 
-                <p>With a deep commitment to social justice and women's rights, our founder recognized that ending gender-based violence requires a multifaceted approach—combining education, practical self-defense tools, community support, and unwavering advocacy. Her Armour was born from this vision.</p>
+                <p>With a background in social work and community organizing, our founder recognized that ending gender-based violence requires more than just awareness—it demands action, resources, and empowerment. This realization led to the creation of this initiative, combining education, advocacy, and practical support for survivors.</p>
 
-                <p>Through workshops, awareness campaigns, and the provision of safety resources, we've reached thousands of women, giving them the confidence, knowledge, and tools to protect themselves and break the cycle of violence. Every woman who walks away stronger is a victory for us all.</p>
+                <p>Through workshops, community programs, and strategic partnerships, we've reached thousands of individuals, providing them with the knowledge and tools to recognize, prevent, and respond to gender-based violence. Every day brings new challenges, but also new opportunities to make a lasting difference.</p>
 
                 <!-- Inspiring quote from founder -->
                 <div class="founder-quote">
-                    Every woman deserves to feel safe. Every survivor deserves support. Every voice deserves to be heard. Her Armour is not just an initiative—it's a movement to reclaim power, dignity, and freedom.
+                    Every person deserves to live without fear. Every voice deserves to be heard. Every survivor deserves support. This is not just our mission—it's our commitment to humanity.
                 </div>
             </div>
         </div>
@@ -1282,7 +1172,7 @@
 <section class="impact" id="impact">
     <div class="container">
         <h2 class="section-title">Our Impact</h2>
-        <p class="section-subtitle">Transforming lives and building safer communities</p>
+        <p class="section-subtitle">Making a difference, one life at a time</p>
 
         <!-- Impact statistics grid -->
         <div class="impact-grid">
@@ -1291,7 +1181,7 @@
                     <i class="fas fa-users"></i>
                 </div>
                 <div class="impact-number">5,000+</div>
-                <div class="impact-label">Women Empowered</div>
+                <div class="impact-label">Lives Touched</div>
             </div>
 
             <div class="impact-card">
@@ -1331,7 +1221,7 @@
                         <i class="fas fa-bullhorn"></i>
                         Awareness Campaigns
                     </h4>
-                    <p>Running community-wide campaigns to educate about consent, healthy relationships, and recognizing warning signs of abuse. Our campaigns reach schools, workplaces, and community centers across Botswana.</p>
+                    <p>Running community-wide campaigns to educate about consent, healthy relationships, and recognizing warning signs of abuse. Our campaigns reach schools, workplaces, and community centers.</p>
                 </div>
 
                 <!-- Activity card 2 -->
@@ -1340,7 +1230,7 @@
                         <i class="fas fa-fist-raised"></i>
                         Self-Defense Training
                     </h4>
-                    <p>Providing practical self-defense workshops to empower women with physical safety skills and confidence. Our training programs are designed for all skill levels and focus on real-world protection scenarios.</p>
+                    <p>Providing practical self-defense workshops to empower individuals with physical safety skills and confidence. Our training programs are designed for all skill levels and focus on real-world scenarios.</p>
                 </div>
 
                 <!-- Activity card 3 -->
@@ -1349,7 +1239,7 @@
                         <i class="fas fa-heart"></i>
                         Support Networks
                     </h4>
-                    <p>Building strong support systems and connecting survivors with counseling, legal aid, and community resources. We provide a safe space for healing, recovery, and empowerment.</p>
+                    <p>Building strong support systems and connecting survivors with counseling, legal aid, and community resources. We provide a safe space for healing and recovery.</p>
                 </div>
 
                 <!-- Activity card 4 - Links to e-commerce -->
@@ -1358,7 +1248,7 @@
                         <i class="fas fa-shield-alt"></i>
                         Safety Resources
                     </h4>
-                    <p>Distributing essential safety tools and resources through our Her Armour shop to help women protect themselves. Check out our products below for life-saving safety items.</p>
+                    <p>Distributing safety tools and resources through our merchandise program to help individuals protect themselves. Check out our shop below for essential safety items.</p>
                 </div>
             </div>
         </div>
@@ -1370,8 +1260,8 @@
 ======================================== -->
 <section class="ecommerce" id="shop">
     <div class="container">
-        <h2 class="section-title">Her Armour Shop</h2>
-        <p class="section-subtitle">Every purchase helps fund our programs and empowers women survivors</p>
+        <h2 class="section-title">Support the Cause</h2>
+        <p class="section-subtitle">Every purchase helps fund our programs and empowers survivors</p>
 
         <!-- Products grid -->
         <div class="products-grid">
@@ -1381,14 +1271,14 @@
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <div class="product-info">
-                    <h3>Self Defense Keychain Set</h3>
+                    <h4>Self Defense Key chains</h4>
                     <ul>
                         <li>Fluffy Pom Pom</li>
                         <li>Kitty Knuckle</li>
                         <li>Alarm & Torch</li>
                         <li>Seatbelt Cutter & Whistle</li>
                         <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
+                        <li>Kubatton (Glass Breaker)</li>
                         <li>Key Knife</li>
                         <li>Space for Hand Lotion/Sanitiser</li>
                     </ul>
@@ -1402,14 +1292,14 @@
                     <i class="fas fa-tshirt"></i>
                 </div>
                 <div class="product-info">
-                    <h4>Self Defense Keychain Set + Pepper Spray</h4>
+                    <h4>Keychain Set + Pepper Spray</h4>
                     <ul>
                         <li>Fluffy Pom Pom</li>
                         <li>Kitty Knuckle</li>
                         <li>Alarm & Torch</li>
                         <li>Seatbelt Cutter & Whistle</li>
                         <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
+                        <li>Kubatton (Glass Breaker)</li>
                         <li>Key Knife</li>
                         <li>Space for Hand Lotion/Sanitiser</li>
                         <li>Pepper Spray</li>
@@ -1424,19 +1314,19 @@
                     <i class="fas fa-gem"></i>
                 </div>
                 <div class="product-info">
-                    <h4>Self Defense Keychain Set + Taser & Pepper Spray</h4>
+                    <h4>Keychain Set + Taser & Pepper Spray</h4>
                     <ul>
                         <li>Fluffy Pom Pom</li>
                         <li>Kitty Knuckle</li>
                         <li>Alarm & Torch</li>
                         <li>Seatbelt Cutter & Whistle</li>
                         <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
+                        <li>Kubatton (Glass Breaker)</li>
                         <li>Key Knife</li>
                         <li>Space for Hand Lotion/Sanitiser</li>
-                        <li>Pepper Spray</li>
                         <li>Taser</li>
-                    </ul>
+                        <li>Pepper Spray</li>
+                   </ul>
                     <div class="product-price">BWP 450</div>
                 </div>
             </div>
@@ -1448,7 +1338,7 @@
                 </div>
                 <div class="product-info">
                     <h4>Empowerment Journal</h4>
-                    <p>Guided journal for healing, self-discovery, and building resilience. Essential tools for personal growth and emotional wellness.</p>
+                    <p>Guided journal for healing, self-discovery, and building resilience. Tools for personal growth and emotional wellness.</p>
                     <div class="product-price">BWP 180</div>
                 </div>
             </div>
@@ -1459,9 +1349,9 @@
         ======================================== -->
         <div class="whatsapp-cta">
             <h3>Ready to Make a Difference?</h3>
-            <p>Contact us on WhatsApp to inquire about our products or make a purchase. Our Her Armour team is ready to assist you and answer any questions!</p>
+            <p>Contact us on WhatsApp to inquire about our products or make a purchase. Our team is ready to assist you and answer any questions!</p>
             <!-- WhatsApp button with pre-filled message -->
-            <a href="https://wa.me/26700000000?text=Hi!%20I'm%20interested%20in%20Her%20Armour%20and%20would%20like%20to%20learn%20more%20about%20your%20products%20and%20mission." class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/26700000000?text=Hi!%20I'm%20interested%20in%20supporting%20the%20cause%20and%20would%20like%20to%20learn%20more%20about%20your%20products." class="whatsapp-button" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i>
                 <span>Chat on WhatsApp</span>
             </a>
@@ -1476,23 +1366,23 @@
     <div class="footer-content">
         <!-- Social media links with brand icons -->
         <div class="social-links">
-            <a href="https://www.facebook.com/share/16xa1bNAEJ/" class="facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/share/16xa1bNAEJ/" class="facebook" aria-label="Facebook" target="https://www.facebook.com/share/16xa1bNAEJ/">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="#" class="twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
+            <a href="#" class="twitter" aria-label="Twitter" target="_blank">
                 <i class="fab fa-twitter"></i>
             </a>
-            <a href="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3" class="instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3" class="instagram" aria-label="Instagram" target="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://www.linkedin.com/company/her-armour/" class="linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/company/her-armour/" class="linkedin" aria-label="LinkedIn" target="https://www.linkedin.com/company/her-armour/">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
 
         <p>&copy; 2026 Her Armour. All rights reserved.</p>
         <p style="margin-top: 1rem;">
-            Made with <span class="footer-heart">❤</span> for every woman's safety
+            Made with <span class="footer-heart">❤</span> for a safer tomorrow
         </p>
         <p style="margin-top: 0.5rem; opacity: 0.8;">Together, we can end gender-based violence.</p>
     </div>
@@ -1502,45 +1392,6 @@
      JAVASCRIPT - Interactivity & Animations
 ======================================== -->
 <script>
-    // ========================================
-    // BACKGROUND IMAGE CAROUSEL
-    // ========================================
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    let currentSlide = 0;
-    const slideInterval = 5000; // Change slide every 5 seconds
-
-    // Function to show specific slide
-    function showSlide(index) {
-        // Remove active class from all slides
-        slides.forEach(slide => slide.classList.remove('active'));
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-
-        // Add active class to current slide
-        slides[index].classList.add('active');
-        indicators[index].classList.add('active');
-    }
-
-    // Function to go to next slide
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    // Auto-advance carousel
-    let carouselTimer = setInterval(nextSlide, slideInterval);
-
-    // Click on indicators to navigate
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            currentSlide = index;
-            showSlide(currentSlide);
-            // Reset timer when manually navigating
-            clearInterval(carouselTimer);
-            carouselTimer = setInterval(nextSlide, slideInterval);
-        });
-    });
-
     // ========================================
     // MOBILE MENU TOGGLE
     // ========================================
