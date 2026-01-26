@@ -2,9 +2,1563 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Her Armour</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========================================
+           GLOBAL STYLES & RESET
+        ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Container for consistent spacing */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+        ======================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 20px;
+        }
+
+        /* Logo with vibrant gradient */
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 50%, #a83279 75%, #8e2d8b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation links */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Animated underline on hover */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        /* Mobile menu toggle button */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* ========================================
+           HERO SECTION - Eye-catching entrance
+        ======================================== */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 20%, #c44569 40%, #a83279 70%, #8e2d8b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background pattern */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating shapes for visual interest */
+        .hero-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            top: 30%;
+            right: 15%;
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-20px) rotate(-5deg);
+            }
+        }
+
+        /* Hero content with fade-in animation */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 900px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        /* Highlight text with different styling */
+        .hero h1 .highlight {
+            display: block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 1rem;
+            border-radius: 10px;
+            margin-top: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        /* Call-to-action button with hover effects */
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: white;
+            color: #c44569;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: white;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* ========================================
+           SECTION STYLING - Consistent layout
+        ======================================== */
+        section {
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        /* Section title with vibrant underline */
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: -1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569, #8e2d8b);
+            border-radius: 3px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 4rem;
+            font-size: 1.3rem;
+            font-weight: 400;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ========================================
+           FOUNDER SECTION - Personal connection
+        ======================================== */
+        .founder {
+            background: linear-gradient(135deg, #f8f9ff 0%, #fff5f7 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative background element */
+        .founder::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(142, 45, 139, 0.1));
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .founder-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-image {
+            position: relative;
+        }
+
+        /* Image placeholder with gradient and shadow */
+        .founder-image-placeholder{
+            width: 100%;
+            height: 550px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 50%, #a83279 75%, #8e2d8b 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            box-shadow: 0 30px 80px rgba(196, 69, 105, 0.4);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated shine effect on image */
+        .founder-image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .founder-image-placeholder:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
+        }
+
+        .founder-name{
+            position: relative;
+            left: 5%;
+            font-size: 1.8rem;
+            color: #4a5568;
+            text-align: center;
+        }
+
+        /* Founder text content */
+        .founder-text h3 {
+            font-size: 2.3rem;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .founder-text p {
+            color: #4a5568;
+            margin-bottom: 1.8rem;
+            line-height: 1.9;
+            font-size: 1.1rem;
+        }
+
+        /* Highlighted quote box */
+        .founder-quote {
+            border-left: 5px solid #ff6b6b;
+            padding: 1.5rem 2rem;
+            background: white;
+            border-radius: 10px;
+            font-style: italic;
+            color: #c44569;
+            margin-top: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .founder-quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: #ff6b6b;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        /* ========================================
+           IMPACT SECTION - Stats showcase
+        ======================================== */
+        .impact {
+            background: white;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+
+        /* Stat cards with vibrant gradients */
+        .impact-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        /* Gradient border effect on hover */
+        .impact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            padding: 2px;
+            background: linear-gradient(135deg, #ff6b6b, #c44569, #8e2d8b);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(196, 69, 105, 0.2);
+        }
+
+        .impact-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Icon styling with gradient background */
+        .impact-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(196, 69, 105, 0.3);
+        }
+
+        .impact-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b 0%, #c44569 50%, #8e2d8b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            letter-spacing: -2px;
+        }
+
+        .impact-label {
+            color: #4a5568;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ACTIVITIES SECTION - Current work
+        ======================================== */
+        .activities {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.08) 0%, rgba(142, 45, 139, 0.08) 100%);
+            padding: 4rem;
+            border-radius: 30px;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activities::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569, #8e2d8b);
+        }
+
+        .activities h3 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #1a202c;
+            font-weight: 800;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Activity cards with icons */
+        .activity-item {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle gradient overlay */
+        .activity-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .activity-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .activity-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(196, 69, 105, 0.15);
+        }
+
+        .activity-item h4 {
+            color: #c44569;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .activity-item h4 i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .activity-item p {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* ========================================
+           E-COMMERCE SECTION - Vibrant shop
+        ======================================== */
+        .ecommerce {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 20%, #c44569 40%, #a83279 70%, #8e2d8b 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background shapes */
+        .ecommerce::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .ecommerce .section-title {
+            color: white;
+        }
+
+        .ecommerce .section-title::after {
+            background: white;
+        }
+
+        .ecommerce .section-subtitle {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Product cards with glass effect */
+        .product-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Product image area */
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-info h4 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .product-info p {
+            margin-bottom: 1.2rem;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .product-price {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* WhatsApp CTA section */
+        .whatsapp-cta {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .whatsapp-cta h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+        }
+
+        .whatsapp-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* WhatsApp button with official green */
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 18px 45px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-button i {
+            font-size: 1.8rem;
+        }
+
+        .whatsapp-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(37, 211, 102, 0.5);
+            background: #20BA5A;
+        }
+
+        /* Pulse animation on WhatsApp button */
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 60px;
+            background: #25D366;
+            animation: pulse-ring 2s infinite;
+        }
+
+        /* ========================================
+           FOOTER - Social and contact info
+        ======================================== */
+        footer {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 4rem 20px 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Social media icons */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links a {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        /* Individual social media brand colors */
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            border-color: white;
+        }
+
+        .social-links a.facebook:hover {
+            background: #1877f2;
+            box-shadow: 0 10px 30px rgba(24, 119, 242, 0.4);
+        }
+
+        .social-links a.twitter:hover {
+            background: #1da1f2;
+            box-shadow: 0 10px 30px rgba(29, 161, 242, 0.4);
+        }
+
+        .social-links a.instagram:hover {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.4);
+        }
+
+        .social-links a.linkedin:hover {
+            background: #0077b5;
+            box-shadow: 0 10px 30px rgba(0, 119, 181, 0.4);
+        }
+
+        footer p {
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+
+        .footer-heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20%, 40% { transform: scale(1); }
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE DESIGN
+        ======================================== */
+        @media (max-width: 768px) {
+            /* Mobile navigation */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            /* Hero section mobile adjustments */
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                font-size: 1.1rem;
+                padding: 15px 35px;
+            }
+
+            /* Founder section stacks on mobile */
+            .founder-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .founder-image-placeholder {
+                height: 400px;
+            }
+
+            /* Section titles smaller on mobile */
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+
+            /* Grids become single column */
+            .impact-grid,
+            .activities-grid,
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Social links smaller gaps */
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .social-links a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+
+            /* Padding adjustments */
+            section {
+                padding: 60px 20px;
+            }
+
+            .activities {
+                padding: 3rem 1.5rem;
+            }
+
+            .whatsapp-cta {
+                padding: 3rem 2rem;
+            }
+
+            .whatsapp-button {
+                font-size: 1.1rem;
+                padding: 15px 35px;
+            }
+        }
+
+        /* ========================================
+           ACCESSIBILITY & UTILITY CLASSES
+        ======================================== */
+
+        /* Smooth scrolling for entire page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus states for keyboard navigation */
+        a:focus,
+        button:focus {
+            outline: 3px solid #ff6b6b;
+            outline-offset: 3px;
+        }
+
+        /* Reduced motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
+<!-- ========================================
+     NAVIGATION BAR
+======================================== -->
+<nav>
+    <div class="container">
+        <div class="logo">Her Armour</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#founder">Founder</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#shop">Shop</a></li>
+        </ul>
+        <!-- Mobile menu toggle button -->
+        <div class="mobile-menu" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
 
+<!-- ========================================
+     HERO SECTION - First impression
+======================================== -->
+<section class="hero" id="home">
+    <!-- Animated floating shapes for visual interest -->
+    <div class="hero-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="hero-content">
+        <h1>
+            Breaking the Silence
+            <span class="highlight">Ending Gender-Based Violence</span>
+        </h1>
+        <p>Join us in the fight against gender-based violence. Together, we can create a safer, more equitable world where everyone lives free from fear and violence. Your voice matters. Your action counts.</p>
+        <a href="#impact" class="cta-button">Discover Our Mission</a>
+    </div>
+
+    <!-- Scroll indicator to guide users -->
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+    </div>
+</section>
+
+<!-- ========================================
+     FOUNDER SECTION - Personal story
+======================================== -->
+<section class="founder" id="founder">
+    <div class="container">
+        <h2 class="section-title">Meet Our Founder</h2>
+        <!-- <h1 class="founder-name"> Mandipa Amantle Hlabano </h1>-->
+        <p class="section-subtitle">A voice for the voiceless, a champion for change</p>
+
+        <div class="founder-content">
+            <!-- Founder image placeholder -->
+            <div class="founder-image">
+                <div class="founder-image-placeholder">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h1 class="founder-name"> Mandipa Amantle Hlabano </h1>
+            </div>
+
+            <!-- Founder story and mission -->
+            <div class="founder-text">
+                <h3>Driven by Purpose, Fueled by Compassion</h3>
+                <p>Our founder's journey began with a deeply personal experience that opened their eyes to the pervasive nature of gender-based violence in our communities. What started as a desire to help one person evolved into a mission to create systemic change.</p>
+
+                <p>With a background in social work and community organizing, our founder recognized that ending gender-based violence requires more than just awareness—it demands action, resources, and empowerment. This realization led to the creation of this initiative, combining education, advocacy, and practical support for survivors.</p>
+
+                <p>Through workshops, community programs, and strategic partnerships, we've reached thousands of individuals, providing them with the knowledge and tools to recognize, prevent, and respond to gender-based violence. Every day brings new challenges, but also new opportunities to make a lasting difference.</p>
+
+                <!-- Inspiring quote from founder -->
+                <div class="founder-quote">
+                    Every person deserves to live without fear. Every voice deserves to be heard. Every survivor deserves support. This is not just our mission—it's our commitment to humanity.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     IMPACT SECTION - Achievements & Stats
+======================================== -->
+<section class="impact" id="impact">
+    <div class="container">
+        <h2 class="section-title">Our Impact</h2>
+        <p class="section-subtitle">Making a difference, one life at a time</p>
+
+        <!-- Impact statistics grid -->
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="impact-number">5,000+</div>
+                <div class="impact-label">Lives Touched</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="impact-number">150+</div>
+                <div class="impact-label">Workshops Conducted</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="impact-number">30+</div>
+                <div class="impact-label">Communities Reached</div>
+            </div>
+
+            <div class="impact-card">
+                <div class="impact-icon">
+                    <i class="fas fa-hands-helping"></i>
+                </div>
+                <div class="impact-number">500+</div>
+                <div class="impact-label">Survivors Supported</div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             CURRENT ACTIVITIES SUBSECTION
+        ======================================== -->
+        <div class="activities">
+            <h3>What We're Doing Now</h3>
+            <div class="activities-grid">
+                <!-- Activity card 1 -->
+                <div class="activity-item">
+                    <h4>
+                        <i class="fas fa-bullhorn"></i>
+                        Awareness Campaigns
+                    </h4>
+                    <p>Running community-wide campaigns to educate about consent, healthy relationships, and recognizing warning signs of abuse. Our campaigns reach schools, workplaces, and community centers.</p>
+                </div>
+
+                <!-- Activity card 2 -->
+                <div class="activity-item">
+                    <h4>
+                        <i class="fas fa-fist-raised"></i>
+                        Self-Defense Training
+                    </h4>
+                    <p>Providing practical self-defense workshops to empower individuals with physical safety skills and confidence. Our training programs are designed for all skill levels and focus on real-world scenarios.</p>
+                </div>
+
+                <!-- Activity card 3 -->
+                <div class="activity-item">
+                    <h4>
+                        <i class="fas fa-heart"></i>
+                        Support Networks
+                    </h4>
+                    <p>Building strong support systems and connecting survivors with counseling, legal aid, and community resources. We provide a safe space for healing and recovery.</p>
+                </div>
+
+                <!-- Activity card 4 - Links to e-commerce -->
+                <div class="activity-item">
+                    <h4>
+                        <i class="fas fa-shield-alt"></i>
+                        Safety Resources
+                    </h4>
+                    <p>Distributing safety tools and resources through our merchandise program to help individuals protect themselves. Check out our shop below for essential safety items.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     E-COMMERCE SECTION - Shop for the cause
+======================================== -->
+<section class="ecommerce" id="shop">
+    <div class="container">
+        <h2 class="section-title">Support the Cause</h2>
+        <p class="section-subtitle">Every purchase helps fund our programs and empowers survivors</p>
+
+        <!-- Products grid -->
+        <div class="products-grid">
+            <!-- Product 1: Safety Alarm -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="product-info">
+                    <h4>Safety Alarm & Flashlight</h4>
+                    <p>Portable personal alarm with LED flashlight. Loud 130dB alarm to deter attackers and draw attention in emergencies.</p>
+                    <div class="product-price">BWP 150</div>
+                </div>
+            </div>
+
+            <!-- Product 2: Awareness T-Shirt -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="product-info">
+                    <h4>Awareness T-Shirt</h4>
+                    <p>Premium quality shirt with empowering message. Wear your support proudly—all proceeds directly support our programs.</p>
+                    <div class="product-price">BWP 200</div>
+                </div>
+            </div>
+
+            <!-- Product 3: Safety Bracelet -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <div class="product-info">
+                    <h4>Safety Bracelet</h4>
+                    <p>Stylish bracelet with hidden safety features and emergency contact information. Fashion meets function.</p>
+                    <div class="product-price">BWP 120</div>
+                </div>
+            </div>
+
+            <!-- Product 4: Empowerment Journal -->
+            <div class="product-card">
+                <div class="product-image">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="product-info">
+                    <h4>Empowerment Journal</h4>
+                    <p>Guided journal for healing, self-discovery, and building resilience. Tools for personal growth and emotional wellness.</p>
+                    <div class="product-price">BWP 180</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             WHATSAPP CALL-TO-ACTION
+        ======================================== -->
+        <div class="whatsapp-cta">
+            <h3>Ready to Make a Difference?</h3>
+            <p>Contact us on WhatsApp to inquire about our products or make a purchase. Our team is ready to assist you and answer any questions!</p>
+            <!-- WhatsApp button with pre-filled message -->
+            <a href="https://wa.me/26700000000?text=Hi!%20I'm%20interested%20in%20supporting%20the%20cause%20and%20would%20like%20to%20learn%20more%20about%20your%20products." class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-whatsapp"></i>
+                <span>Chat on WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     FOOTER - Social links and copyright
+======================================== -->
+<footer>
+    <div class="footer-content">
+        <!-- Social media links with brand icons -->
+        <div class="social-links">
+            <a href="#" class="facebook" aria-label="Facebook" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="twitter" aria-label="Twitter" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="instagram" aria-label="Instagram" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="linkedin" aria-label="LinkedIn" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </div>
+
+        <p>&copy; 2026 Her Armour. All rights reserved.</p>
+        <p style="margin-top: 1rem;">
+            Made with <span class="footer-heart">❤</span> for a safer tomorrow
+        </p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Together, we can end gender-based violence.</p>
+    </div>
+</footer>
+
+<!-- ========================================
+     JAVASCRIPT - Interactivity & Animations
+======================================== -->
+<script>
+    // ========================================
+    // MOBILE MENU TOGGLE
+    // ========================================
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    // Toggle mobile menu on click
+    mobileMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+
+        // Animate hamburger icon
+        const spans = mobileMenu.querySelectorAll('span');
+        spans[0].style.transform = navLinks.classList.contains('active') ? 'rotate(45deg) translateY(8px)' : 'none';
+        spans[1].style.opacity = navLinks.classList.contains('active') ? '0' : '1';
+        spans[2].style.transform = navLinks.classList.contains('active') ? 'rotate(-45deg) translateY(-8px)' : 'none';
+    });
+
+    // Close mobile menu when clicking a navigation link
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            const spans = mobileMenu.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        });
+    });
+
+    // ========================================
+    // SMOOTH SCROLLING
+    // ========================================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                // Smooth scroll to section with offset for fixed nav
+                const offsetTop = target.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // ========================================
+    // NAVBAR SCROLL EFFECTS
+    // ========================================
+    let lastScroll = 0;
+    const navbar = document.querySelector('nav');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        // Add shadow when scrolled down
+        if (currentScroll > 100) {
+            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.12)';
+        } else {
+            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.08)';
+        }
+
+        lastScroll = currentScroll;
+    });
+
+    // ========================================
+    // SCROLL ANIMATIONS - Intersection Observer
+    // ========================================
+    const observerOptions = {
+        threshold: 0.15, // Trigger when 15% of element is visible
+        rootMargin: '0px 0px -80px 0px' // Start animation slightly before element enters viewport
+    };
+
+    // Create intersection observer for animation on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Fade in and slide up animation
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Apply animations to cards and items
+    document.querySelectorAll('.impact-card, .activity-item, .product-card, .founder-content > *').forEach(el => {
+        // Set initial state
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+
+        // Observe element
+        observer.observe(el);
+    });
+
+    // ========================================
+    // STAGGERED ANIMATION FOR IMPACT CARDS
+    // ========================================
+    const impactCards = document.querySelectorAll('.impact-card');
+    impactCards.forEach((card, index) => {
+        // Add delay based on card position
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    // ========================================
+    // NUMBER COUNTER ANIMATION
+    // ========================================
+    const countNumbers = () => {
+        const numbers = document.querySelectorAll('.impact-number');
+
+        numbers.forEach(number => {
+            const target = parseInt(number.textContent.replace(/\D/g, ''));
+            const suffix = number.textContent.replace(/[0-9,]/g, '');
+            let current = 0;
+            const increment = target / 50; // Animation speed
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    number.textContent = Math.ceil(current).toLocaleString() + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    number.textContent = target.toLocaleString() + suffix;
+                }
+            };
+
+            // Start counter when element is visible
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counterObserver.observe(number);
+        });
+    };
+
+    // Initialize counter animation
+    countNumbers();
+
+    // ========================================
+    // PARALLAX EFFECT ON HERO
+    // ========================================
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero-content');
+
+        // Move hero content slightly on scroll for depth
+        if (hero && scrolled < window.innerHeight) {
+            hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            hero.style.opacity = 1 - (scrolled / 600);
+        }
+    });
+
+    // ========================================
+    // PRODUCT CARD TILT EFFECT (DESKTOP)
+    // ========================================
+    if (window.innerWidth > 768) {
+        const productCards = document.querySelectorAll('.product-card');
+
+        productCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
+    // ========================================
+    // ACCESSIBILITY - Keyboard navigation
+    // ========================================
+    document.addEventListener('keydown', (e) => {
+        // ESC key closes mobile menu
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            const spans = mobileMenu.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+</script>
 </body>
 </html>
