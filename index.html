@@ -56,11 +56,17 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            will-change: opacity;
         }
 
         /* Active slide */
         .carousel-slide.active {
             opacity: 1;
+        }
+
+        /* Preload next slides for smoother transitions */
+        .carousel-slide:not(.active) {
+            pointer-events: none;
         }
 
         /* Global overlay for consistent readability */
@@ -83,18 +89,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            background-image:
+                    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
             animation: pulse 8s ease-in-out infinite;
         }
 
         @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.7;
-            }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Carousel indicators - Fixed position */
@@ -132,6 +135,8 @@
             position: fixed;
             top: 0;
             width: 100%;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(1px);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
             z-index: 1000;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -148,7 +153,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
-            background: white;
+            background: floralwhite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -164,10 +169,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+
         }
 
         .logo:hover {
-            transform: scale(1.15);
+            transform: scale(1.05);
         }
 
         /* Navigation links */
@@ -179,7 +185,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #2d3748;
+            color: #ffffff;
             font-weight: 600;
             font-size: 1.05rem;
             transition: all 0.3s ease;
@@ -194,7 +200,7 @@
             left: 0;
             width: 0;
             height: 3px;
-            background: black;
+            background: linear-gradient(90deg, #ff6b6b, #c44569);
             transition: width 0.3s ease;
             border-radius: 2px;
         }
@@ -258,30 +264,28 @@
             }
         }
 
-        .hero .HA {
-            font-family: "Montserrat Black";
-            font-size: 5.5rem;
+        .HA {
+            font-size: 6.5rem;
             margin-bottom: 1.5rem;
-            text-box-edge: auto;
             font-weight: 900;
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             line-height: 1.2;
             letter-spacing: -2px;
-            text-decoration: blueviolet;
+            font-family: "Montserrat Black", sans-serif;
             color: blueviolet;
         }
 
         /* Highlight text with different styling */
-        .hero h1 .highlight {
+        .highlight {
+            font-family: Montserrat;
+            font-size: 3rem;
+            color: floralwhite;
             display: block;
-            font-family: Montserrat, sans-serif;
-            font-size: 3.5rem;
-            text-decoration-color: #530a51;
+            /*background: rgba(255, 255, 255, 0.2);*/
             padding: 0.2rem 1rem;
             border-radius: 10px;
             margin-top: 0.5rem;
             backdrop-filter: blur(1px);
-            color: whitesmoke;
         }
 
         .hero .tagline {
@@ -354,7 +358,7 @@
             font-size: 2rem;
             color: white;
             opacity: 0.8;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
 
         @keyframes bounce {
@@ -439,7 +443,8 @@
 
         .founder-content {
             display: grid;
-            gap: 4.5rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
             align-items: center;
             max-width: 1100px;
             margin: 0 auto;
@@ -449,12 +454,133 @@
 
         .founder-image {
             position: relative;
+            /*overflow: hidden;*/
+            border-radius: 30px;
         }
 
-        /* Image placeholder with gradient and shadow */
+        /* Founder image carousel container */
+        .founder-carousel {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(196, 69, 105, 0.4);
+        }
+
+        .founder-name{
+            font-family: Montserrat, sans-serif;
+            font-size: 1.5rem ;
+            text-align: center;
+            left: 5%;
+            position: absolute;
+            padding-top: 25px;
+        }
+
+        /* Individual founder image slides */
+        .founder-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.3s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            will-change: opacity;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+
+        /* Active founder slide */
+        .founder-slide.active {
+            opacity: 1;
+        }
+
+        /* Optimize non-active slides */
+        .founder-slide:not(.active) {
+            pointer-events: none;
+        }
+
+        /* Founder carousel navigation arrows */
+        .founder-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .founder-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .founder-nav.prev {
+            left: 20px;
+        }
+
+        .founder-nav.next {
+            right: 20px;
+        }
+
+        .founder-nav i {
+            color: #c44569;
+            font-size: 1.5rem;
+        }
+
+        /* Founder carousel indicators */
+        .founder-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            visibility: hidden;
+        }
+
+        .founder-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .founder-indicator.active {
+            background: white;
+            width: 25px;
+            border-radius: 5px;
+            visibility: hidden;
+        }
+
+        /* Image placeholder with gradient and shadow (fallback) */
         .founder-image-placeholder {
             width: 100%;
-            height: fit-content;
+            height: 450px;
             background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #c44569 50%, #a83279 75%, #8e2d8b 100%);
             border-radius: 30px;
             display: flex;
@@ -466,15 +592,6 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-        }
-
-        .founder-name {
-            text-align: center;
-            font-size: 1.8rem;
-            font-family: Montserrat, sans-serif;
-            position-anchor: middle;
-            position: relative;
-            padding-top: 3.5rem;
         }
 
         /* Animated shine effect on image */
@@ -499,28 +616,9 @@
             }
         }
 
-        /* Default: Mobile Image */
-        .founder-image-placeholder::after {
-            background-image: url('images/mandipa.jpeg');
-            height: fit-content;
-            background-size: cover;
-        }
-
-        /* Switch to Desktop Image at 1024px */
-        @media (min-width: 1024px) {
-            .founder-image-placeholder {
-                background-image: url('images/mandipa2.jpeg');
-                height: fit-content;
-            }
-        }
-
         .founder-image-placeholder:hover {
             transform: scale(1.03) rotate(-1deg);
             box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
-        }
-
-        .founder-name:hover {
-            transform: scale(1.03) rotate(-1deg);
         }
 
         /* Founder text content */
@@ -580,7 +678,7 @@
             margin-bottom: 5rem;
         }
 
-        /* Stat cards with vibrant gradients */
+        /* Impact cards with vibrant gradients */
         .impact-card {
             background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
             padding: 3rem 2rem;
@@ -591,6 +689,7 @@
             position: relative;
             overflow: hidden;
             border: 2px solid transparent;
+            will-change: transform;
         }
 
         /* Gradient border effect on hover */
@@ -698,6 +797,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            will-change: transform;
         }
 
         /* Subtle gradient overlay */
@@ -747,10 +847,242 @@
         }
 
         /* ========================================
+           MISSION & VALUES SECTION
+        ======================================== */
+        .mission-values {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .mission-values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .mission-box, .values-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-box::before, .values-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #c44569, #8e2d8b);
+        }
+
+        .mission-box h3, .values-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #1a202c;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mission-box h3 i, .values-box h3 i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-box p {
+            color: #4a5568;
+            line-height: 1.9;
+            font-size: 1.1rem;
+        }
+
+        .values-list {
+            list-style: none;
+        }
+
+        .values-list li {
+            color: #4a5568;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .values-list li i {
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            margin-top: 0.3rem;
+            flex-shrink: 0;
+        }
+
+        .values-list li strong {
+            color: #c44569;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ========================================
+           TEAM SECTION
+        ======================================== */
+        .team {
+            background: rgba(248, 249, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(196, 69, 105, 0.2);
+        }
+
+        .team-member-image {
+            height: 300px;
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .team-member-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-member-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1a202c;
+            font-weight: 700;
+        }
+
+        .team-member-role {
+            color: #c44569;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .team-member-bio {
+            color: #4a5568;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* ========================================
+           PRODUCTS CAROUSEL
+        ======================================== */
+        .products-carousel-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            overflow: hidden;
+        }
+
+        .products-carousel {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-slide {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+
+        .products-carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .products-carousel-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .products-carousel-nav.prev {
+            left: -25px;
+        }
+
+        .products-carousel-nav.next {
+            right: -25px;
+        }
+
+        .products-carousel-nav i {
+            color: #c44569;
+            font-size: 1.5rem;
+        }
+
+        .products-carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+
+        .product-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+            visibility: hidden;
+        }
+
+        .product-indicator.active {
+            background: white;
+            width: 25px;
+            border-radius: 5px;
+        }
+        /* ========================================
            E-COMMERCE SECTION - Vibrant shop
         ======================================== */
         .ecommerce {
-            background: rgba(255, 107, 107, 0.95);
+            background: rgba(195, 72, 177, 0.95);
             backdrop-filter: blur(10px);
             color: white;
             position: relative;
@@ -788,15 +1120,6 @@
             z-index: 0;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-30px);
-            }
-        }
-
         .ecommerce .section-title {
             color: white;
         }
@@ -809,15 +1132,6 @@
             color: rgba(255, 255, 255, 0.95);
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-            position: relative;
-            z-index: 1;
-        }
-
         /* Product cards with glass effect */
         .product-card {
             background: rgba(255, 255, 255, 0.15);
@@ -827,6 +1141,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            will-change: transform;
         }
 
         .product-card:hover {
@@ -838,7 +1153,10 @@
 
         /* Product image area */
         .product-image {
-            height: 280px;
+            height: 550px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 5%;
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
             display: flex;
             align-items: center;
@@ -1064,7 +1382,7 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: white;
+                background: rgba(198, 162, 197, 0.01);
                 flex-direction: column;
                 padding: 2rem;
                 box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
@@ -1103,8 +1421,52 @@
                 gap: 3rem;
             }
 
+            .founder-carousel,
             .founder-image-placeholder {
-                height: 400px;
+                height: 350px;
+            }
+
+            /* Mission and values stack on mobile */
+            .mission-values-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            /* Team grid adjustments */
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Products carousel navigation */
+            .products-carousel-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .products-carousel-nav.prev {
+                left: -20px;
+            }
+
+            .products-carousel-nav.next {
+                right: -20px;
+            }
+
+            /* Smaller navigation arrows on mobile */
+            .founder-nav {
+                width: 40px;
+                height: 40px;
+            }
+
+            .founder-nav.prev {
+                left: 10px;
+            }
+
+            .founder-nav.next {
+                right: 10px;
+            }
+
+            .founder-nav i {
+                font-size: 1.2rem;
             }
 
             /* Section titles smaller on mobile */
@@ -1206,21 +1568,17 @@
 ======================================== -->
 <!-- Background carousel visible across entire site -->
 <div class="global-background">
-    <!-- Slide 1: Women empowerment theme -->
-    <div class="carousel-slide active"
-         style="background-image: url('images/back4.jpeg');"></div>
+    <!-- Slide 1: Women empowerment theme - Optimized image -->
+    <div class="carousel-slide active" style="background-image: url('images/back4.jpeg');"></div>
 
-    <!-- Slide 2: Strength and resilience -->
-    <div class="carousel-slide"
-         style="background-image: url('images/back3.jpeg');"></div>
+    <!-- Slide 2: Strength and resilience - Optimized image -->
+    <div class="carousel-slide" style="background-image: url('images/back3.jpeg');"></div>
 
-    <!-- Slide 3: Community support -->
-    <div class="carousel-slide"
-         style="background-image: url('images/back2.jpeg');"></div>
+    <!-- Slide 3: Community support - Optimized image -->
+    <div class="carousel-slide" style="background-image: url('images/back2.jpeg');"></div>
 
-    <!-- Slide 4: Solidarity -->
-    <div class="carousel-slide"
-         style="background-image: url('images/back1.jpeg');"></div>
+    <!-- Slide 4: Solidarity - Optimized image -->
+    <div class="carousel-slide" style="background-image: url('images/back1.jpeg');"></div>
 </div>
 
 <!-- Global overlay for consistent text readability -->
@@ -1245,7 +1603,9 @@
         </div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#home">Home</a></li>
-            <li><a href="#founder">Founder</a></li>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#team">Team</a></li>
             <li><a href="#impact">Impact</a></li>
             <li><a href="#shop">Shop</a></li>
         </ul>
@@ -1268,8 +1628,7 @@
             Her Armour
             <span class="highlight">Standing Strong Against Gender-Based Violence</span>
         </h1>
-        <p>Join us in the fight against gender-based violence. Together, we can create a safer, more equitable world
-            where every woman lives free from fear and violence. Your voice matters. Your action counts.</p>
+        <p>Join us in the fight against gender-based violence. Together, we can create a safer, more equitable world where every woman lives free from fear and violence. Your voice matters. Your action counts.</p>
         <a href="#impact" class="cta-button">Discover Our Mission</a>
     </div>
 
@@ -1280,42 +1639,175 @@
 </section>
 
 <!-- ========================================
-     FOUNDER SECTION - Personal story
+     MISSION & VALUES SECTION
 ======================================== -->
-<section class="founder" id="founder">
+<section class="mission-values" id="mission">
     <div class="container">
-        <h2 class="section-title">Meet Our Founder</h2>
-        <p class="section-subtitle">A voice for the voiceless, a champion for change</p>
+        <h2 class="section-title">Our Mission & Values</h2>
+        <p class="section-subtitle">The principles that guide everything we do</p>
+
+        <div class="mission-values-grid">
+            <!-- Mission Box -->
+            <div class="mission-box">
+                <h3>
+                    <i class="fas fa-bullseye"></i>
+                    Our Mission
+                </h3>
+                <p>To empower women and end gender-based violence through education, advocacy, and practical support. We envision a Botswana where every woman lives free from fear, equipped with the knowledge, tools, and community support needed to protect herself and thrive. Through comprehensive programs that combine awareness campaigns, self-defense training, and survivor support, we are building a movement that transforms lives and creates lasting social change.</p>
+            </div>
+
+            <!-- Values Box -->
+            <div class="values-box">
+                <h3>
+                    <i class="fas fa-heart"></i>
+                    Our Values
+                </h3>
+                <ul class="values-list">
+                    <li>
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <strong>Empowerment</strong>
+                            Equipping women with knowledge, skills, and confidence to protect themselves and claim their rights.
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-hands-helping"></i>
+                        <div>
+                            <strong>Compassion</strong>
+                            Providing judgment-free support and understanding to all survivors of violence.
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <strong>Community</strong>
+                            Building strong networks of support that create lasting change together.
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fas fa-fist-raised"></i>
+                        <div>
+                            <strong>Action</strong>
+                            Moving beyond awareness to tangible solutions that save lives.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     ABOUT US SECTION (Formerly Founder)
+======================================== -->
+<section class="founder" id="about">
+    <div class="container">
+        <h2 class="section-title">About Us</h2>
+        <p class="section-subtitle">Our story and the founder's journey</p>
 
         <div class="founder-content">
-            <!-- Founder image placeholder -->
+            <!-- Founder image carousel -->
             <div class="founder-image">
-                <picture class="founder-image-placeholder">
-                    <img alt="Her Armour Founder" src="images/mandipa.jpeg" style="width:100%;">
-                </picture>
+                <div class="founder-carousel">
+                    <!-- Founder image slide 1 - Optimized -->
+                    <div class="founder-slide active" style="background-image: url('images/mandipa.jpeg');"></div>
 
-                <h2 class="founder-name">Mandipa Amantle Hlabano</h2>
+                    <!-- Founder image slide 2 - Optimized -->
+                    <div class="founder-slide" style="background-image: url('images/mandipa3.jpeg');"></div>
+
+                    <!-- Founder image slide 3 - Optimized -->
+                    <div class="founder-slide" style="background-image: url('images/mandipa2.jpeg');"></div>
+
+                    <!-- Founder image slide 4 - Optimized -->
+<!--                    <div class="founder-slide" style="background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=700&fit=crop&q=75&auto=format');"></div>-->
+
+                    <!-- Navigation arrows -->
+                    <div class="founder-nav prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="founder-nav next">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+
+                    <!-- Carousel indicators -->
+                    <div class="founder-indicators">
+                        <span class="founder-indicator active" data-founder-slide="0"></span>
+                        <span class="founder-indicator" data-founder-slide="1"></span>
+                        <span class="founder-indicator" data-founder-slide="2"></span>
+                        <span class="founder-indicator" data-founder-slide="3"></span>
+                    </div>
+                </div>
+                <h1 class="founder-name" alt="Mandipa">Mandipa Amantle Hlabano</h1>
             </div>
 
             <!-- Founder story and mission -->
             <div class="founder-text">
-                <h3>Driven by Purpose, Fueled by Compassion</h3>
-                <p>The founder of Her Armour embarked on this journey after witnessing the devastating impact of
-                    gender-based violence in communities across Botswana. What began as a personal mission to support
-                    one survivor evolved into a comprehensive initiative to protect and empower women everywhere.</p>
+                <h3>The Founder's Journey</h3>
+                <p>Her Armour was founded with a singular vision: to create a world where every woman feels safe, empowered, and protected. The founder's journey began after witnessing the devastating impact of gender-based violence in communities across Botswana, where too many women suffered in silence, lacking the resources and support to break free.</p>
 
-                <p>With a deep commitment to social justice and women's rights, our founder recognized that ending
-                    gender-based violence requires a multifaceted approach—combining education, practical self-defense
-                    tools, community support, and unwavering advocacy. Her Armour was born from this vision.</p>
+                <p>What started as a grassroots effort to support one survivor evolved into a comprehensive initiative that combines education, practical tools, and community advocacy. With a background in social work and a deep commitment to women's rights, the founder recognized that ending gender-based violence requires more than awareness—it demands action, resources, and systematic change.</p>
 
-                <p>Through workshops, awareness campaigns, and the provision of safety resources, we've reached
-                    thousands of women, giving them the confidence, knowledge, and tools to protect themselves and break
-                    the cycle of violence. Every woman who walks away stronger is a victory for us all.</p>
+                <p>Today, Her Armour stands as a beacon of hope and strength, providing thousands of women with self-defense training, safety resources, counseling support, and a powerful community that refuses to stay silent. Every workshop taught, every safety device distributed, and every survivor supported represents a step toward our ultimate goal: a Botswana free from gender-based violence.</p>
 
                 <!-- Inspiring quote from founder -->
                 <div class="founder-quote">
-                    Every woman deserves to feel safe. Every survivor deserves support. Every voice deserves to be
-                    heard. Her Armour is not just an initiative—it's a movement to reclaim power, dignity, and freedom.
+                    Every woman deserves to feel safe. Every survivor deserves support. Every voice deserves to be heard. Her Armour is not just an initiative—it's a movement to reclaim power, dignity, and freedom for all women.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================
+     MEET THE TEAM SECTION
+======================================== -->
+<section class="team" id="team">
+    <div class="container">
+        <h2 class="section-title">Meet The Team</h2>
+        <p class="section-subtitle">The passionate individuals driving change</p>
+
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <div class="team-member">
+                <div class="team-member-image" style="background-image: url('images/mandipa2.jpeg');">
+                </div>
+                <div class="team-member-info">
+                    <h4>Mandipa Hlabano</h4>
+                    <div class="team-member-role">Founder & Executive Director</div>
+                    <p class="team-member-bio">Visionary leader with 10+ years in social work and women's advocacy, dedicated to ending gender-based violence.</p>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="team-member">
+                <div class="team-member-image" style="background-image: url('images/mandipa3.jpeg');">
+                </div>
+                <div class="team-member-info">
+                    <h4>Amantle Hlabano</h4>
+                    <div class="team-member-role">Programs Coordinator</div>
+                    <p class="team-member-bio">Manages our community workshops and training programs, ensuring maximum impact across Botswana.</p>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="team-member">
+                <div class="team-member-image" style="background-image: url('images/mandipa4.jpeg');">
+                </div>
+                <div class="team-member-info">
+                    <h4>Mandipa Amantle</h4>
+                    <div class="team-member-role">Self-Defense Instructor</div>
+                    <p class="team-member-bio">Certified martial arts instructor empowering women with practical self-defense skills and confidence.</p>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="team-member">
+                <div class="team-member-image" style="background-image: url('images/mandipa.jpeg');">
+                </div>
+                <div class="team-member-info">
+                    <h4>Jane Doe</h4>
+                    <div class="team-member-role">Counselor & Support Specialist</div>
+                    <p class="team-member-bio">Licensed counselor providing trauma-informed care and emotional support to survivors.</p>
                 </div>
             </div>
         </div>
@@ -1377,9 +1869,7 @@
                         <i class="fas fa-bullhorn"></i>
                         Awareness Campaigns
                     </h4>
-                    <p>Running community-wide campaigns to educate about consent, healthy relationships, and recognizing
-                        warning signs of abuse. Our campaigns reach schools, workplaces, and community centers across
-                        Botswana.</p>
+                    <p>Running community-wide campaigns to educate about consent, healthy relationships, and recognizing warning signs of abuse. Our campaigns reach schools, workplaces, and community centers across Botswana.</p>
                 </div>
 
                 <!-- Activity card 2 -->
@@ -1388,9 +1878,7 @@
                         <i class="fas fa-fist-raised"></i>
                         Self-Defense Training
                     </h4>
-                    <p>Providing practical self-defense workshops to empower women with physical safety skills and
-                        confidence. Our training programs are designed for all skill levels and focus on real-world
-                        protection scenarios.</p>
+                    <p>Providing practical self-defense workshops to empower women with physical safety skills and confidence. Our training programs are designed for all skill levels and focus on real-world protection scenarios.</p>
                 </div>
 
                 <!-- Activity card 3 -->
@@ -1399,8 +1887,7 @@
                         <i class="fas fa-heart"></i>
                         Support Networks
                     </h4>
-                    <p>Building strong support systems and connecting survivors with counseling, legal aid, and
-                        community resources. We provide a safe space for healing, recovery, and empowerment.</p>
+                    <p>Building strong support systems and connecting survivors with counseling, legal aid, and community resources. We provide a safe space for healing, recovery, and empowerment.</p>
                 </div>
 
                 <!-- Activity card 4 - Links to e-commerce -->
@@ -1409,8 +1896,7 @@
                         <i class="fas fa-shield-alt"></i>
                         Safety Resources
                     </h4>
-                    <p>Distributing essential safety tools and resources through our Her Armour shop to help women
-                        protect themselves. Check out our products below for life-saving safety items.</p>
+                    <p>Distributing essential safety tools and resources through our Her Armour shop to help women protect themselves. Check out our products below for life-saving safety items.</p>
                 </div>
             </div>
         </div>
@@ -1425,86 +1911,112 @@
         <h2 class="section-title">Her Armour Shop</h2>
         <p class="section-subtitle">Every purchase helps fund our programs and empowers women survivors</p>
 
-        <!-- Products grid -->
-        <div class="products-grid">
-            <!-- Product 1: Safety Alarm -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img alt="Normal Keychains" src="images/product1.jpeg">
+        <!-- Products Carousel -->
+        <div class="products-carousel-container">
+            <div class="products-carousel" id="productsCarousel">
+                <!-- Product Slide 1: Safety Alarm -->
+                <div class="product-slide">
+                    <div class="product-image">
+                        <img alt="Normal Keychains" src="images/product1.jpeg">
+                    </div>
+                    <div class="product-info">
+                        <h3>Self Defense Keychain Set</h3>
+                        <ul>
+                            <li>Fluffy Pom Pom</li>
+                            <li>Kitty Knuckle</li>
+                            <li>Alarm & Torch</li>
+                            <li>Seatbelt Cutter & Whistle</li>
+                            <li>Pepper Spray</li>
+                            <li> Kubatton (Glass Breaker)</li>
+                            <li>Key Knife</li>
+                            <li>Space for Hand Lotion/Sanitiser</li>
+                        </ul>
+                        <div class="product-price">BWP 250</div>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <h3>Self Defense Keychain Set</h3>
-                    <ul>
-                        <li>Fluffy Pom Pom</li>
-                        <li>Kitty Knuckle</li>
-                        <li>Alarm & Torch</li>
-                        <li>Seatbelt Cutter & Whistle</li>
-                        <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
-                        <li>Key Knife</li>
-                        <li>Space for Hand Lotion/Sanitiser</li>
-                    </ul>
-                    <div class="product-price">BWP 250</div>
+
+                <!-- Product Slide 2: Awareness T-Shirt -->
+                <div class="product-slide">
+                    <div class="product-image">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Self Defense Keychain Set + Pepper Spray</h3>
+                        <ul>
+                            <li>Fluffy Pom Pom</li>
+                            <li>Kitty Knuckle</li>
+                            <li>Alarm & Torch</li>
+                            <li>Seatbelt Cutter & Whistle</li>
+                            <li>Pepper Spray</li>
+                            <li> Kubatton (Glass Breaker)</li>
+                            <li>Key Knife</li>
+                            <li>Space for Hand Lotion/Sanitiser</li>
+                            <li>Pepper Spray</li>
+                        </ul>
+                        <div class="product-price">BWP 300</div>
+                    </div>
+                </div>
+
+                <!-- Product Slide 3: Safety Bracelet -->
+                <div class="product-slide">
+                    <div class="product-image">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Self Defense Keychain Set + Taser & Pepper Spray</h3>
+                        <ul>
+                            <li>Fluffy Pom Pom</li>
+                            <li>Kitty Knuckle</li>
+                            <li>Alarm & Torch</li>
+                            <li>Seatbelt Cutter & Whistle</li>
+                            <li>Pepper Spray</li>
+                            <li> Kubatton (Glass Breaker)</li>
+                            <li>Key Knife</li>
+                            <li>Space for Hand Lotion/Sanitiser</li>
+                            <li>Pepper Spray</li>
+                            <li>Taser</li>
+                        </ul>
+                        <div class="product-price">BWP 450</div>
+                    </div>
+                </div>
+
+                <!-- Product Slide 4: Empowerment Journal -->
+                <div class="product-slide">
+                    <div class="product-image">
+                        <img alt="Normal Keychains" src="images/product1.jpeg">
+                    </div>
+                    <div class="product-info">
+                        <h3>Self Defense Keychain Set</h3>
+                        <ul>
+                            <li>Fluffy Pom Pom</li>
+                            <li>Kitty Knuckle</li>
+                            <li>Alarm & Torch</li>
+                            <li>Seatbelt Cutter & Whistle</li>
+                            <li>Pepper Spray</li>
+                            <li> Kubatton (Glass Breaker)</li>
+                            <li>Key Knife</li>
+                            <li>Space for Hand Lotion/Sanitiser</li>
+                        </ul>
+                        <div class="product-price">BWP 250</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Product 2: Awareness T-Shirt -->
-            <div class="product-card">
-                <div class="product-image">
-                    <i class="fas fa-tshirt"></i>
-                </div>
-                <div class="product-info">
-                    <h4>Self Defense Keychain Set + Pepper Spray</h4>
-                    <ul>
-                        <li>Fluffy Pom Pom</li>
-                        <li>Kitty Knuckle</li>
-                        <li>Alarm & Torch</li>
-                        <li>Seatbelt Cutter & Whistle</li>
-                        <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
-                        <li>Key Knife</li>
-                        <li>Space for Hand Lotion/Sanitiser</li>
-                        <li>Pepper Spray</li>
-                    </ul>
-                    <div class="product-price">BWP 300</div>
-                </div>
+            <!-- Carousel Navigation -->
+            <div class="products-carousel-nav prev">
+                <i class="fas fa-chevron-left"></i>
             </div>
+            <div class="products-carousel-nav next">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
 
-            <!-- Product 3: Safety Bracelet -->
-            <div class="product-card">
-                <div class="product-image">
-                    <i class="fas fa-gem"></i>
-                </div>
-                <div class="product-info">
-                    <h4>Self Defense Keychain Set + Taser & Pepper Spray</h4>
-                    <ul>
-                        <li>Fluffy Pom Pom</li>
-                        <li>Kitty Knuckle</li>
-                        <li>Alarm & Torch</li>
-                        <li>Seatbelt Cutter & Whistle</li>
-                        <li>Pepper Spray</li>
-                        <li> Kubatton (Glass Breaker)</li>
-                        <li>Key Knife</li>
-                        <li>Space for Hand Lotion/Sanitiser</li>
-                        <li>Pepper Spray</li>
-                        <li>Taser</li>
-                    </ul>
-                    <div class="product-price">BWP 450</div>
-                </div>
-            </div>
-
-            <!-- Product 4: Empowerment Journal -->
-            <div class="product-card">
-                <div class="product-image">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="product-info">
-                    <h4>Empowerment Journal</h4>
-                    <p>Guided journal for healing, self-discovery, and building resilience. Essential tools for personal
-                        growth and emotional wellness.</p>
-                    <div class="product-price">BWP 180</div>
-                </div>
-            </div>
+        <!-- Carousel Indicators -->
+        <div class="products-carousel-indicators">
+            <span class="product-indicator active" data-product-slide="0"></span>
+            <span class="product-indicator" data-product-slide="1"></span>
+            <span class="product-indicator" data-product-slide="2"></span>
+            <span class="product-indicator" data-product-slide="3"></span>
         </div>
 
         <!-- ========================================
@@ -1512,11 +2024,9 @@
         ======================================== -->
         <div class="whatsapp-cta">
             <h3>Ready to Make a Difference?</h3>
-            <p>Contact us on WhatsApp to inquire about our products or make a purchase. Our Her Armour team is ready to
-                assist you and answer any questions!</p>
+            <p>Contact us on WhatsApp to inquire about our products or make a purchase. Our Her Armour team is ready to assist you and answer any questions!</p>
             <!-- WhatsApp button with pre-filled message -->
-            <a class="whatsapp-button"
-               href="https://wa.me/message/F2HGQ4WRQMXNH1" rel="noopener noreferrer" target="_blank">
+            <a href="https://wa.me/message/F2HGQ4WRQMXNH1" class="whatsapp-button" target="https://wa.me/message/F2HGQ4WRQMXNH1" rel="noopener noreferrer">
                 <i class="fab fa-whatsapp"></i>
                 <span>Chat on WhatsApp</span>
             </a>
@@ -1531,19 +2041,16 @@
     <div class="footer-content">
         <!-- Social media links with brand icons -->
         <div class="social-links">
-            <a aria-label="Facebook" class="facebook" href="https://www.facebook.com/share/16xa1bNAEJ/" rel="noopener noreferrer"
-               target="_blank">
+            <a href="https://www.facebook.com/share/16xa1bNAEJ/" class="facebook" aria-label="Facebook" target="https://www.facebook.com/share/16xa1bNAEJ/" rel="noopener noreferrer">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <a aria-label="Twitter" class="twitter" href="#" rel="noopener noreferrer" target="_blank">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a aria-label="Instagram" class="instagram"
-               href="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3" rel="noopener noreferrer" target="_blank">
+<!--            <a href="#" class="twitter" aria-label="Twitter" target="_blank" rel="noopener noreferrer">-->
+<!--                <i class="fab fa-twitter"></i>-->
+<!--            </a>-->
+            <a href="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3" class="instagram" aria-label="Instagram" target="https://www.instagram.com/her.armour_?igsh=dG4zbHoyMDJkMHo3" rel="noopener noreferrer">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a aria-label="LinkedIn" class="linkedin" href="https://www.linkedin.com/company/her-armour/"
-               rel="noopener noreferrer" target="_blank">
+            <a href="https://www.linkedin.com/company/her-armour/" class="linkedin" aria-label="LinkedIn" target="https://www.linkedin.com/company/her-armour/" rel="noopener noreferrer">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </div>
@@ -1560,6 +2067,191 @@
      JAVASCRIPT - Interactivity & Animations
 ======================================== -->
 <script>
+    // ========================================
+    // PERFORMANCE OPTIMIZATION - Lazy Loading
+    // ========================================
+
+    // Preload critical images for first carousel slide
+    const preloadImages = () => {
+        const firstSlide = document.querySelector('.carousel-slide.active');
+        if (firstSlide) {
+            const img = new Image();
+            const bgImage = firstSlide.style.backgroundImage.match(/url\(['"]?([^'"]+)['"]?\)/);
+            if (bgImage) {
+                img.src = bgImage[1];
+            }
+        }
+    };
+
+    // Call preload on page load
+    window.addEventListener('load', preloadImages);
+
+    // Debounce function for scroll events
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // ========================================
+    // PRODUCTS CAROUSEL
+    // ========================================
+    const productsCarousel = document.getElementById('productsCarousel');
+    const productSlides = document.querySelectorAll('.product-slide');
+    const productIndicators = document.querySelectorAll('.product-indicator');
+    const productPrev = document.querySelector('.products-carousel-nav.prev');
+    const productNext = document.querySelector('.products-carousel-nav.next');
+    let currentProductSlide = 0;
+
+    // Function to show specific product slide
+    function showProductSlide(index) {
+        // Update carousel position
+        const offset = -index * 100;
+        productsCarousel.style.transform = `translateX(${offset}%)`;
+
+        // Update indicators
+        productIndicators.forEach(indicator => indicator.classList.remove('active'));
+        productIndicators[index].classList.add('active');
+    }
+
+    // Function to go to next product
+    function nextProductSlide() {
+        currentProductSlide = (currentProductSlide + 1) % productSlides.length;
+        showProductSlide(currentProductSlide);
+    }
+
+    // Function to go to previous product
+    function prevProductSlide() {
+        currentProductSlide = (currentProductSlide - 1 + productSlides.length) % productSlides.length;
+        showProductSlide(currentProductSlide);
+    }
+
+    // Auto-advance products carousel
+    let productsCarouselTimer = setInterval(nextProductSlide, 5000);
+
+    // Navigation arrows
+    if (productNext) {
+        productNext.addEventListener('click', () => {
+            nextProductSlide();
+            clearInterval(productsCarouselTimer);
+            productsCarouselTimer = setInterval(nextProductSlide, 5000);
+        });
+    }
+
+    if (productPrev) {
+        productPrev.addEventListener('click', () => {
+            prevProductSlide();
+            clearInterval(productsCarouselTimer);
+            productsCarouselTimer = setInterval(nextProductSlide, 5000);
+        });
+    }
+
+    // Click on indicators
+    productIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentProductSlide = index;
+            showProductSlide(currentProductSlide);
+            clearInterval(productsCarouselTimer);
+            productsCarouselTimer = setInterval(nextProductSlide, 5000);
+        });
+    });
+
+    // Pause on hover
+    const productsCarouselContainer = document.querySelector('.products-carousel-container');
+    if (productsCarouselContainer) {
+        productsCarouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(productsCarouselTimer);
+        });
+
+        productsCarouselContainer.addEventListener('mouseleave', () => {
+            productsCarouselTimer = setInterval(nextProductSlide, 5000);
+        });
+    }
+
+    // ========================================
+    // FOUNDER IMAGE CAROUSEL
+    // ========================================
+    const founderSlides = document.querySelectorAll('.founder-slide');
+    const founderIndicators = document.querySelectorAll('.founder-indicator');
+    const founderPrev = document.querySelector('.founder-nav.prev');
+    const founderNext = document.querySelector('.founder-nav.next');
+    let currentFounderSlide = 0;
+    const founderSlideInterval = 4000; // Change slide every 4 seconds
+
+    // Function to show specific founder slide
+    function showFounderSlide(index) {
+        // Remove active class from all slides
+        founderSlides.forEach(slide => slide.classList.remove('active'));
+        founderIndicators.forEach(indicator => indicator.classList.remove('active'));
+
+        // Add active class to current slide
+        founderSlides[index].classList.add('active');
+        founderIndicators[index].classList.add('active');
+    }
+
+    // Function to go to next founder slide
+    function nextFounderSlide() {
+        currentFounderSlide = (currentFounderSlide + 1) % founderSlides.length;
+        showFounderSlide(currentFounderSlide);
+    }
+
+    // Function to go to previous founder slide
+    function prevFounderSlide() {
+        currentFounderSlide = (currentFounderSlide - 1 + founderSlides.length) % founderSlides.length;
+        showFounderSlide(currentFounderSlide);
+    }
+
+    // Auto-advance founder carousel
+    let founderCarouselTimer = setInterval(nextFounderSlide, founderSlideInterval);
+
+    // Navigation arrows
+    if (founderNext) {
+        founderNext.addEventListener('click', () => {
+            nextFounderSlide();
+            // Reset timer when manually navigating
+            clearInterval(founderCarouselTimer);
+            founderCarouselTimer = setInterval(nextFounderSlide, founderSlideInterval);
+        });
+    }
+
+    if (founderPrev) {
+        founderPrev.addEventListener('click', () => {
+            prevFounderSlide();
+            // Reset timer when manually navigating
+            clearInterval(founderCarouselTimer);
+            founderCarouselTimer = setInterval(nextFounderSlide, founderSlideInterval);
+        });
+    }
+
+    // Click on indicators to navigate
+    founderIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            currentFounderSlide = index;
+            showFounderSlide(currentFounderSlide);
+            // Reset timer when manually navigating
+            clearInterval(founderCarouselTimer);
+            founderCarouselTimer = setInterval(nextFounderSlide, founderSlideInterval);
+        });
+    });
+
+    // Pause carousel on hover
+    const founderCarousel = document.querySelector('.founder-carousel');
+    if (founderCarousel) {
+        founderCarousel.addEventListener('mouseenter', () => {
+            clearInterval(founderCarouselTimer);
+        });
+
+        founderCarousel.addEventListener('mouseleave', () => {
+            founderCarouselTimer = setInterval(nextFounderSlide, founderSlideInterval);
+        });
+    }
+
     // ========================================
     // BACKGROUND IMAGE CAROUSEL
     // ========================================
@@ -1646,12 +2338,12 @@
     });
 
     // ========================================
-    // NAVBAR SCROLL EFFECTS
+    // NAVBAR SCROLL EFFECTS - Optimized
     // ========================================
     let lastScroll = 0;
     const navbar = document.querySelector('nav');
 
-    window.addEventListener('scroll', () => {
+    const handleScroll = debounce(() => {
         const currentScroll = window.pageYOffset;
 
         // Add shadow when scrolled down
@@ -1662,7 +2354,9 @@
         }
 
         lastScroll = currentScroll;
-    });
+    }, 10);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     // ========================================
     // SCROLL ANIMATIONS - Intersection Observer
@@ -1743,9 +2437,9 @@
     countNumbers();
 
     // ========================================
-    // PARALLAX EFFECT ON HERO
+    // PARALLAX EFFECT ON HERO - Optimized
     // ========================================
-    window.addEventListener('scroll', () => {
+    const handleParallax = debounce(() => {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero-content');
 
@@ -1754,7 +2448,9 @@
             hero.style.transform = `translateY(${scrolled * 0.3}px)`;
             hero.style.opacity = 1 - (scrolled / 600);
         }
-    });
+    }, 10);
+
+    window.addEventListener('scroll', handleParallax, { passive: true });
 
     // ========================================
     // PRODUCT CARD TILT EFFECT (DESKTOP)
