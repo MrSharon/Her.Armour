@@ -156,7 +156,7 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 900;
-            background: black;
+            background: floralwhite;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -188,7 +188,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: black;
+            color: #ffffff;
             font-weight: 600;
             font-size: 1.05rem;
             transition: all 0.3s ease;
@@ -529,23 +529,27 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
+            z-index: 100;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            visibility: hidden;
+            opacity: 0;
+        }
+
+        .founder-image:hover .founder-nav {
+            opacity: 1;
         }
 
         .founder-nav:hover {
             background: white;
-            transform: translateY(-50%) scale(1.1);
+            transform: translateY(-50%) scale(1.15);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .founder-nav.prev {
-            left: 20px;
+            left: 15px;
         }
 
         .founder-nav.next {
-            right: 20px;
+            right: 15px;
         }
 
         .founder-nav i {
@@ -561,8 +565,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 10px;
-            z-index: 10;
-            visibility: hidden;
+            z-index: 100;
         }
 
         .founder-indicator {
@@ -1104,22 +1107,22 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            z-index: 10;
+            z-index: 100;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .products-carousel-nav:hover {
             background: white;
-            transform: translateY(-50%) scale(1.1);
+            transform: translateY(-50%) scale(1.15);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
         .products-carousel-nav.prev {
-            left: -25px;
+            left: 10px;
         }
 
         .products-carousel-nav.next {
-            right: -25px;
+            right: 10px;
         }
 
         .products-carousel-nav i {
@@ -1151,11 +1154,212 @@
             border-radius: 5px;
         }
         /* ========================================
-           E-COMMERCE SECTION - Vibrant shop
+        /* ========================================
+           INITIATIVES SECTION
         ======================================== */
+        #initiatives {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #initiatives::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(230, 69, 135, 0.69) 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(50px) translateX(30px);
+            }
+        }
+
+        #initiatives .section-title {
+            color: white;
+        }
+
+        #initiatives .section-title::after {
+            background: white;
+        }
+
+        #initiatives .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .initiative-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .initiative-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 60px rgba(255, 107, 107, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .initiative-header {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            transform: skewY(-5deg);
+            transform-origin: top left;
+            margin-bottom: -20px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .initiative-card:hover .initiative-header {
+            transform: skewY(0deg);
+        }
+
+        .initiative-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: skewY(5deg) scale(1.2);
+            transition: transform 0.5s ease;
+        }
+
+        .initiative-card:hover .initiative-header img {
+            transform: skewY(0deg) scale(1.3);
+        }
+
+        .initiative-badge {
+            position: absolute;
+            top: 35px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 10;
+            transform: skewY(5deg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .initiative-card:hover .initiative-badge {
+            transform: skewY(0deg);
+        }
+
+        .initiative-content {
+            padding: 2.5rem;
+            color: white;
+        }
+
+        .initiative-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .initiative-content p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .initiative-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .initiative-actions h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .social-links-initiative {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links-initiative a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-links-initiative a:hover {
+            background: white;
+            color: #c44569;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .initiative-btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+
+        .initiative-btn:hover {
+            background: white;
+            color: #c44569;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .initiative-btn.petition {
+            background: linear-gradient(135deg, #ff6b6b, #c44569);
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .initiative-btn.petition:hover {
+            background: linear-gradient(135deg, #ff8585, #d55a7f);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        /* =======================================
+          E-COMMERCE SECTION - Vibrant shop
+         ======================================== */
         .ecommerce {
-            background: rgba(195, 72, 177, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(195, 72, 177, 0.01);
             color: white;
             position: relative;
             overflow: hidden;
@@ -1169,7 +1373,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(196, 69, 105, 0.3) 50%, rgba(142, 45, 139, 0.3) 100%);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.25) 0%, rgba(196, 69, 105, 0.25) 50%, rgba(142, 45, 139, 0.26) 100%);
             pointer-events: none;
             z-index: 0;
         }
@@ -1516,11 +1720,11 @@
             }
 
             .products-carousel-nav.prev {
-                left: -20px;
+                left: 5px;
             }
 
             .products-carousel-nav.next {
-                right: -20px;
+                right: 5px;
             }
 
             /* Smaller navigation arrows on mobile */
@@ -1530,11 +1734,11 @@
             }
 
             .founder-nav.prev {
-                left: 10px;
+                left: 5px;
             }
 
             .founder-nav.next {
-                right: 10px;
+                right: 5px;
             }
 
             .founder-nav i {
@@ -1575,6 +1779,11 @@
 
             .activities {
                 padding: 3rem 1.5rem;
+            }
+
+            /* Initiatives grid becomes single column */
+            .initiatives-grid {
+                grid-template-columns: 1fr;
             }
 
             .whatsapp-cta {
@@ -1684,6 +1893,7 @@
             <li><a href="#about">About Us</a></li>
             <li><a href="#team">Team</a></li>
             <li><a href="#impact">Impact</a></li>
+            <li><a href="#initiatives">Initiatives</a></li>
             <li><a href="#shop">Shop</a></li>
         </ul>
         <!-- Mobile menu toggle button -->
@@ -2088,6 +2298,84 @@
 </section>
 
 <!-- ========================================
+     INITIATIVES SECTION
+======================================== -->
+<section id="initiatives">
+    <div class="container">
+        <h2 class="section-title">Our Initiatives</h2>
+        <p class="section-subtitle">Partnerships and programs creating lasting change</p>
+
+        <div class="initiatives-grid">
+            <!-- Initiative 1: Safe Haven Project -->
+            <div class="initiative-card">
+                <div class="initiative-header">
+                    <img alt="Safe Haven Project" src="images/impact/impact1.jpeg">
+                    <div class="initiative-badge">Partner</div>
+                </div>
+                <div class="initiative-content">
+                    <h3>Sechaba Sa Etsho</h3>
+                    <p>Giving a voice to the marginalized groups in society</p>
+
+                    <div class="initiative-actions">
+                        <h4>Connect with Sechabe Sa Etsho:</h4>
+                        <div class="social-links-initiative">
+                            <a aria-label="Instagram" href="#"><i class="fab fa-instagram"></i></a>
+                            <a aria-label="Facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                        <a class="initiative-btn" href="#">Visit Website</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Initiative 2: The Empowerment Act -->
+            <div class="initiative-card">
+                <div class="initiative-header">
+                    <img alt="The Empowerment Act" src="images/impact/impact3.jpeg">
+                    <div class="initiative-badge">Started by Us</div>
+                </div>
+                <div class="initiative-content">
+                    <h3>Declare Gender-Based Violance a NATIONAL crisis</h3>
+                    <p>A campaign to get the government of Botswana to take action against the raise in Gender-Based
+                        Violence in Botswana.</p>
+
+                    <div class="initiative-actions">
+                        <h4>Take Action:</h4>
+                        <div class="social-links-initiative">
+                            <a aria-label="Instagram" href="#"><i class="fab fa-instagram"></i></a>
+                            <a aria-label="Facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                        <a class="initiative-btn petition" href="https://www.change.org/HerArmourAgainstGBV">Sign the
+                            Petition</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Initiative 3: Voice for the Voiceless -->
+            <!--            <div class="initiative-card">-->
+            <!--                <div class="initiative-header">-->
+            <!--                    <img src="images/background/back4.jpeg" alt="Voice for the Voiceless">-->
+            <!--                    <div class="initiative-badge">Partner</div>-->
+            <!--                </div>-->
+            <!--                <div class="initiative-content">-->
+            <!--                    <h3>Voice for the Voiceless</h3>-->
+            <!--                    <p>A powerful social media movement amplifying survivor stories and breaking the silence around gender-based violence. Every share creates awareness and saves lives.</p>-->
+
+            <!--                    <div class="initiative-actions">-->
+            <!--                        <h4>Join the Movement:</h4>-->
+            <!--                        <div class="social-links-initiative">-->
+            <!--                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>-->
+            <!--                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>-->
+            <!--                        </div>-->
+            <!--                        <a href="#" class="initiative-btn">Learn More</a>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</section>
+
+
+<!-- ========================================
      E-COMMERCE SECTION - Shop for the cause
 ======================================== -->
 <section class="ecommerce" id="shop">
@@ -2154,7 +2442,7 @@
                             <li>Alarm & Torch</li>
                             <li>Seatbelt Cutter & Whistle</li>
                             <li>Pepper Spray</li>
-                            <li>Kubatton (Glass Breaker)</li>
+                            <li> Kubatton (Glass Breaker)</li>
                             <li>Key Knife</li>
                             <li>Space for Hand Lotion/Sanitiser</li>
                             <li>Pepper Spray</li>
