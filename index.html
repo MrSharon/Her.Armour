@@ -496,6 +496,18 @@
             will-change: opacity;
         }
 
+        .founder-slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
         @keyframes shine {
             0% {
                 transform: translateX(-100%) translateY(-100%) rotate(45deg);
@@ -503,6 +515,11 @@
             100% {
                 transform: translateX(100%) translateY(100%) rotate(45deg);
             }
+        }
+
+        .founder-slide:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
         }
 
         /* Active founder slide */
@@ -576,6 +593,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             border: 2px solid white;
+            visibility: hidden;
         }
 
         .founder-indicator.active {
@@ -603,17 +621,7 @@
         }
 
         /* Animated shine effect on image */
-        .founder-image-placeholder::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
+
 
         @keyframes shine {
             0% {
@@ -624,10 +632,6 @@
             }
         }
 
-        .founder-image-placeholder:hover {
-            transform: scale(1.03) rotate(-1deg);
-            box-shadow: 0 35px 90px rgba(196, 69, 105, 0.5);
-        }
 
         /* Founder text content */
         .founder-text h3 {
@@ -1039,14 +1043,13 @@
 
         .team-member-image {
             height: 300px;
-            background: linear-gradient(135deg, #ff6b6b, #c44569);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 4rem;
             color: white;
             background-size: cover;
-            background-position: center;
+            background: linear-gradient(135deg, #ff6b6b, #c44569) center;
         }
 
         .team-member-info {
@@ -2085,7 +2088,7 @@
                 <div class="team-member-info">
                     <h4>Mandipa Hlabano</h4>
                     <div class="team-member-role">Founder & Executive Director</div>
-                    <p class="team-member-bio">Visionary leader with 10+ years in social work and women's advocacy,
+                    <p class="team-member-bio">Visionary leader with 2+ years in social work and women's advocacy,
                         dedicated to ending gender-based violence.</p>
                 </div>
             </div>
